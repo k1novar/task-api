@@ -19,7 +19,8 @@ class Task(Base):
     description: Mapped[str | None] = mapped_column(String(1000))
     status: Mapped[TaskStatus] = mapped_column(
         Enum(TaskStatus, name="task_status"),
-        default=TaskStatus.TODO
+        default=TaskStatus.TODO,
+        server_default=TaskStatus.TODO.value
     )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
