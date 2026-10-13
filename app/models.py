@@ -8,7 +8,7 @@ from app.database import Base
 
 class TaskStatus(str, enum.Enum):
     TODO = "todo"
-    IN_PROCESS = "in_process"
+    IN_PROGRESS = "in_progress"
     DONE = "done"
 
 class Task(Base):
@@ -18,7 +18,11 @@ class Task(Base):
     title: Mapped[str] = mapped_column(String(255))
     description: Mapped[str | None] = mapped_column(String(1000))
     status: Mapped[TaskStatus] = mapped_column(
-        Enum(TaskStatus, name="task_status"),
+        Enum(
+            TaskStatus,
+            name="task_status", 
+            values_callable=lambda enum_cls: [e.value for e in enum_cls]
+        ),
         default=TaskStatus.TODO,
         server_default=TaskStatus.TODO.value
     )
