@@ -2,7 +2,7 @@ services:
   db:
     image: postgres:18-alpine
     environment:
-      POSTGRES_USER: taskuser 
+      POSTGRES_USER: taskuser
       POSTGRES_PASSWORD: taskpass
       POSTGRES_DB: taskdb
     ports:
@@ -14,5 +14,20 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      APP_DATABASE_URL: postgresql+asyncpg://taskuser:taskpass@db:5432/taskdb
+      APP_DEBUG: "false"
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "uv run alembic upgrade head &&
+             uv run uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
 volumes:
-  postgres_data: 
+  postgres_data:
