@@ -5,7 +5,7 @@ from app import crud
 from app.database import get_db
 from app.schemas import TaskCreate, TaskUpdate, TaskRead
 
-router = APIRouter(prefix="/task", tags=["tasks"])
+router = APIRouter(prefix="/tasks", tags=["tasks"])
 
 @router.post("", response_model=TaskRead, status_code=status.HTTP_201_CREATED)
 async def create_task(data: TaskCreate, db: AsyncSession = Depends(get_db)) -> TaskRead:
@@ -31,6 +31,6 @@ async def update_task(task_id: int, data: TaskUpdate, db: AsyncSession = Depends
 
 @router.delete("/{task_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_task(task_id: int, db: AsyncSession = Depends(get_db)) -> None:
-    deleted_task = await crud.delete_task(task_id, db)
+    deleted_task = await crud.delete_task(db, task_id)
     if not deleted_task:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found")
