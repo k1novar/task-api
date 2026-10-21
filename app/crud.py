@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.models import Task
 from app.schemas import TaskCreate, TaskUpdate
 
+
 async def create_task(db: AsyncSession, data: TaskCreate) -> Task:
     task = Task(**data.model_dump())
     db.add(task)

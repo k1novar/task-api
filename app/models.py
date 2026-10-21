@@ -1,10 +1,11 @@
 import enum
 from datetime import datetime
 
+from sqlalchemy import DateTime, Enum, String, func
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import Enum, String, DateTime, func
 
 from app.database import Base
+
 
 class TaskStatus(str, enum.Enum):
     TODO = "todo"
