@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  APP_DATABASE_URL: "postgresql+asyncpg://user:pass@localhost:5432/testdb"
+  APP_DEBUG: "false"
+
 jobs:
   test:
     runs-on: ubuntu-latest
