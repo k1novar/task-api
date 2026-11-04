@@ -1,3 +1,5 @@
+[![CI](https://github.com/k1novar/task-api/actions/workflows/ci.yml/badge.svg)](https://github.com/k1novar/task-api/actions/workflows/ci.yml)
+
 # Task API
 
 REST API для управления задачами. Демонстрирует современный стек асинхронного Python-бэкенда: FastAPI, SQLAlchemy 2.0 (async), PostgreSQL, Alembic, Docker.
